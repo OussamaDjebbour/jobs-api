@@ -1,5 +1,4 @@
 import 'dotenv/config.js';
-import 'express-async-errors';
 import express from 'express';
 const app = express();
 
