@@ -4,6 +4,8 @@ const app = express();
 
 // connectDB
 
+import connectDB from './db/connect.js';
+
 // routers
 import authRouter from './routes/auth.js';
 import jobsRouter from './routes/jobs.js';
@@ -27,6 +29,8 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
+    await connectDB(process.env.MONGO_URI);
+
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
