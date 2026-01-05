@@ -1,9 +1,15 @@
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
 
 export const register = async (req, res) => {
+  console.log('id', req.body);
+
   const user = await User.create({ ...req.body });
-  res.status(StatusCodes.CREATED).json({ user });
+  const token = jwt.sign({ userId: user._id, name: user.name }, 'jwtSecret', {
+    expiresIn: '30d',
+  });
+  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
 };
 
 export const login = async (req, res) => {
