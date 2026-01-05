@@ -1,10 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
-import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
 
 export const register = async (req, res) => {
-  console.log('id', req.body);
-
   const user = await User.create({ ...req.body });
   const token = jwt.sign({ userId: user._id, name: user.name }, 'jwtSecret', {
     expiresIn: '30d',
